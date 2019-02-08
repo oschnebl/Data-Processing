@@ -1,0 +1,13 @@
+%Lattice Constants:
+Inp_a
+In_a
+Mo_a
+Si_a
+
+A = ; #one of above
+Peaklist = {{1,0,0},{1,1,0},{1,1,1},{2,0,0},{2,1,0},{2,1,1}};
+d=lambda/(2 Sin[theta])
+d=a/Sqrt[h^2+k^2+l^2]
+
+For {h,k,l} in Peaklist:
+  theta = Arcsin[Sqrt[h^2+k^2+l^2]*lambda/A]
