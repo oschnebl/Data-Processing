@@ -1,13 +1,26 @@
-%Lattice Constants:
-Inp_a
-In_a
-Mo_a
-Si_a
+ToDeg[rad_] := N[rad/Degree];
+FromDeg[deg_] := N[Degree deg];
+(*Lattice Constants (nm):*)
+InPa = 0.58687; (*zinc blende*)
+Ina = \
+0.32523; (*tetragonal*)
+Inc = 0.49461;
+Moa = 0.351; (*BCC*)
+Sia = 0.5431; (*FCC/diamond*)
 
-A = ; #one of above
-Peaklist = {{1,0,0},{1,1,0},{1,1,1},{2,0,0},{2,1,0},{2,1,1}};
-d=lambda/(2 Sin[theta])
-d=a/Sqrt[h^2+k^2+l^2]
+lambda = 0.15418; (*need to confirm*)
 
-For {h,k,l} in Peaklist:
-  theta = Arcsin[Sqrt[h^2+k^2+l^2]*lambda/A]
+
+A = InPa;(*one of above*)
+Peaklist = {{1, 0, 0}, {1, 1, 0}, {1, 1, 
+   1}, {2, 0, 0}, {2, 1, 0}, {2, 1, 1}, {2, 2, 0}, {2, 2, 1}, {2, 2, 
+   2}, {3, 0, 0}, {3, 0, 0}, {3, 1, 1}};
+(*d=lambda/(2 Sin[theta])= a/Sqrt[h^2+k^2+l^2]*)
+(*(2 \
+Sin[theta])/lambda = Sqrt[h^2+k^2+l^2]/a*)
+For[i = 1, 
+ i <= Length[Peaklist], i++,
+ {h, k, l} = Peaklist[[i]];
+ theta = ArcSin[Sqrt[h^2 + k^2 + l^2]*lambda/(2*A)] /Degree;
+ Print[{h, k, l}];
+ Print[2*theta]]
