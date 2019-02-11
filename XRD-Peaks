@@ -16,11 +16,13 @@ Peaklist = {{1, 0, 0}, {1, 1, 0}, {1, 1,
    1}, {2, 0, 0}, {2, 1, 0}, {2, 1, 1}, {2, 2, 0}, {2, 2, 1}, {2, 2, 
    2}, {3, 0, 0}, {3, 0, 0}, {3, 1, 1}};
 (*d=lambda/(2 Sin[theta])= a/Sqrt[h^2+k^2+l^2]*)
-(*(2 \
-Sin[theta])/lambda = Sqrt[h^2+k^2+l^2]/a*)
+(*(2 Sin[theta])/lambda = Sqrt[h^2+k^2+l^2]/a*)
 For[i = 1, 
  i <= Length[Peaklist], i++,
  {h, k, l} = Peaklist[[i]];
  theta = ArcSin[Sqrt[h^2 + k^2 + l^2]*lambda/(2*A)] /Degree;
  Print[{h, k, l}];
  Print[2*theta]]
+
+
+(*To Do: add more peaks to Peaklist, account for structure factor*)
