@@ -1,28 +1,51 @@
-ToDeg[rad_] := N[rad/Degree];
-FromDeg[deg_] := N[Degree deg];
-(*Lattice Constants (nm):*)
-InPa = 0.58687; (*zinc blende*)
-Ina = \
-0.32523; (*tetragonal*)
+import numpy as np
+#from prettytable import PrettyTable
+#ToDeg[rad_] := N[rad/Degree];
+#FromDeg[deg_] := N[Degree deg];
+#(*Lattice Constants (nm):*)
+InPa = 0.58687; #(*zinc blende*)
+Ina = 0.32523; #(*tetragonal*)
 Inc = 0.49461;
-Moa = 0.351; (*BCC*)
-Sia = 0.5431; (*FCC/diamond*)
+Moa = 0.351; #(*BCC*)
+Sia = 0.5431; #(*FCC/diamond*)
 
-lambda = 0.15418; (*need to confirm*)
+wvlen = 0.15418; #(*need to confirm*)
 
+#x = PrettyTable()
+#x.field_names = ["Reflection", "2Theta"]
 
-A = InPa;(*one of above*)
-Peaklist = {{1, 0, 0}, {1, 1, 0}, {1, 1, 
-   1}, {2, 0, 0}, {2, 1, 0}, {2, 1, 1}, {2, 2, 0}, {2, 2, 1}, {2, 2, 
-   2}, {3, 0, 0}, {3, 0, 0}, {3, 1, 1}};
-(*d=lambda/(2 Sin[theta])= a/Sqrt[h^2+k^2+l^2]*)
-(*(2 Sin[theta])/lambda = Sqrt[h^2+k^2+l^2]/a*)
-For[i = 1, 
- i <= Length[Peaklist], i++,
- {h, k, l} = Peaklist[[i]];
- theta = ArcSin[Sqrt[h^2 + k^2 + l^2]*lambda/(2*A)] /Degree;
- Print[{h, k, l}];
- Print[2*theta]]
+A = InPa;#(*one of above*)
+Peaklist = [[1,0,0],[1,1,0],[1,1,1],[2,0,0],[2,1,0],[2,1,1],[2,2,0],[2,2,1],[2,2,2],[3,0,0],[3,1,0],[3,1,1],[3,2,0],[3,2,1],[3,2,2],[3,3,0],[3,3,1],[3,3,2],[3,3,3],[4,0,0],[4,1,0],[4,1,1],[4,2,0],[4,2,1],[4,2,2]]
+#(*d=lambda/(2 Sin[theta])= a/Sqrt[h^2+k^2+l^2]*)
+#(*(2 Sin[theta])/lambda = Sqrt[h^2+k^2+l^2]/a*)
 
+#theta = 0.0
+for [h,k,l] in Peaklist:
+    theta = np.arcsin(np.sqrt(h**2 + k**2 + l**2)*wvlen/(2*A))*180/np.pi
+    print([h,k,l], 2*theta)
+    
 
-(*To Do: add more peaks to Peaklist, account for structure factor*)
+################################################################
+Ina = 0.32523; #(*tetragonal*)
+Inc = 0.49461;
+
+wvlen = 0.15418; #(*need to confirm*)
+
+#x = PrettyTable()
+#x.field_names = ["Reflection", "2Theta"]
+
+A = Ina#(*one of above*)
+C = Inc
+Peaklist = [[1,0,0],[0,0,1], [1, 1, 0],[1,0,1], [1, 1,1], [2, 0, 0],[0,0,2],[2, 1, 0], [2, 1, 1], [2, 2, 0], [2, 2, 1], [2, 2, 2], [3, 0, 0], [3, 0, 0], [3, 1, 1]]
+#(*d=lambda/(2 Sin[theta])= a/Sqrt[h^2+k^2+l^2]*)
+#(*(2 Sin[theta])/lambda = Sqrt[h^2+k^2+l^2]/a*)
+
+#theta = 0.0
+for [h,k,l] in Peaklist:
+    if l == 0:
+        theta = np.arcsin(np.sqrt(h**2 + k**2 + l**2)*wvlen/(2*A))*180/np.pi
+        print([h,k,l], 2*theta)
+    elif l > 0:
+        theta = np.arcsin(np.sqrt(h**2/A**2 + k**2/A**2 + l**2/C**2)*wvlen/2)*180/np.pi
+        print([h,k,l], 2*theta)
+        
