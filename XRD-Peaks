@@ -6,7 +6,7 @@ import numpy as np
 InPa = 0.58687; #(*zinc blende*)
 Ina = 0.32523; #(*tetragonal*)
 Inc = 0.49461;
-Moa = 0.351; #(*BCC*)
+Moa = 0.3147; #(*BCC*)
 Sia = 0.5431; #(*FCC/diamond*)
 
 wvlen = 0.15418; #(*need to confirm*)
@@ -14,16 +14,37 @@ wvlen = 0.15418; #(*need to confirm*)
 #x = PrettyTable()
 #x.field_names = ["Reflection", "2Theta"]
 
-A = InPa;#(*one of above*)
+A = Moa;#(*one of above*)
 Peaklist = [[1,0,0],[1,1,0],[1,1,1],[2,0,0],[2,1,0],[2,1,1],[2,2,0],[2,2,1],[2,2,2],[3,0,0],[3,1,0],[3,1,1],[3,2,0],[3,2,1],[3,2,2],[3,3,0],[3,3,1],[3,3,2],[3,3,3],[4,0,0],[4,1,0],[4,1,1],[4,2,0],[4,2,1],[4,2,2]]
 #(*d=lambda/(2 Sin[theta])= a/Sqrt[h^2+k^2+l^2]*)
 #(*(2 Sin[theta])/lambda = Sqrt[h^2+k^2+l^2]/a*)
 
 #theta = 0.0
 for [h,k,l] in Peaklist:
-    theta = np.arcsin(np.sqrt(h**2 + k**2 + l**2)*wvlen/(2*A))*180/np.pi
-    print([h,k,l], 2*theta)
+    if A == InPa:
+        if h%2==0 and k%2==0 and l%2==0:
+            theta = np.arcsin(np.sqrt(h**2 + k**2 + l**2)*wvlen/(A))*180/np.pi
+            print([h,k,l], 2*theta)
+        elif h%2!=0 and k%2!=0 and l%2!=0:
+            theta = np.arcsin(np.sqrt(h**2 + k**2 + l**2)*wvlen/(A))*180/np.pi
+            print([h,k,l], 2*theta)
+            
+    if A == Sia:
+        if h%4==0 and k%4==0 and l%4==0:
+            theta = np.arcsin(np.sqrt(h**2 + k**2 + l**2)*wvlen/(2*A))*180/np.pi
+            print([h,k,l], 2*theta)
+        elif h%2!=0 and k%2!=0 and l%2!=0:
+            theta = np.arcsin(np.sqrt(h**2 + k**2 + l**2)*wvlen/(2*A))*180/np.pi
+            print([h,k,l], 2*theta)
+            
+    if A == Moa:
+        if (h+k+l)%2==0:
+            theta = np.arcsin(np.sqrt((h**2 + k**2 + l**2)/(A**2))*wvlen/2)*180/np.pi
+            print([h,k,l], 2*theta)
+       
     
+
+  
 
 ################################################################
 Ina = 0.32523; #(*tetragonal*)
